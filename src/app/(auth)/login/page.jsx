@@ -94,7 +94,6 @@ export default function PayooLogin() {
     borderRadius: 14,
     border: "1.5px solid",
     fontSize: 15,
-    fontFamily: "'DM Sans', sans-serif",
     fontWeight: 500,
     outline: "none",
     transition: "all 0.25s",
@@ -120,14 +119,16 @@ export default function PayooLogin() {
       <div
         style={{
           minHeight: "100vh",
+          width: "100%",
+          maxWidth: 450,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           background: "#eeeef6",
           position: "relative",
           overflow: "hidden",
-          fontFamily: "'DM Sans', sans-serif",
           padding: "24px 16px",
+          margin: "0 auto",
         }}
       >
         {/* Background blobs */}
@@ -214,7 +215,6 @@ export default function PayooLogin() {
             >
               <h2
                 style={{
-                  fontFamily: "'Syne', sans-serif",
                   fontSize: 22,
                   fontWeight: 800,
                   color: "#1a1a5e",
@@ -388,7 +388,6 @@ export default function PayooLogin() {
                     : "linear-gradient(135deg, #4f46e5 0%, #6d5fdd 100%)",
                   color: "#ffffff",
                   fontSize: 15,
-                  fontFamily: "'Syne', sans-serif",
                   fontWeight: 700,
                   letterSpacing: "0.06em",
                   cursor: loading ? "not-allowed" : "pointer",
@@ -494,7 +493,6 @@ export default function PayooLogin() {
                   background: "#ffffff",
                   color: "#1a1a5e",
                   fontSize: 14,
-                  fontFamily: "'DM Sans', sans-serif",
                   fontWeight: 600,
                   cursor: googleLoading ? "not-allowed" : "pointer",
                   display: "flex",

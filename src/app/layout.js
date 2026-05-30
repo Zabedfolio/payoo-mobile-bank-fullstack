@@ -1,5 +1,6 @@
 import { Outfit } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "react-hot-toast";
 
 const outfit = Outfit({
   variable: "--font-sans",
@@ -20,7 +21,16 @@ export default function RootLayout({ children }) {
       className={`${outfit.variable} h-full antialiased`}
     >
       <body className="bg-white">
+        <Toaster
+          toastOptions={{
+            style: {
+              fontFamily: "var(--font-sans), sans-serif",
+            },
+          }}
+        />
+        <main>
           {children}
+        </main>
       </body>
     </html>
   );

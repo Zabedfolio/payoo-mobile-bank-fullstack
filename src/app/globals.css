@@ -1,3 +1,10 @@
 @import "tailwindcss";
-@import "@heroui/styles"; 
+@import "@heroui/styles";
 
+@theme {
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+body, input, button, select, textarea {
+  font-family: var(--font-sans);
+}
