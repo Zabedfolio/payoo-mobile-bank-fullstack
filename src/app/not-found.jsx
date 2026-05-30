@@ -21,7 +21,7 @@ export default function NotFound() {
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
         style={{
           width: "100%",
-          maxWidth: 400,
+          maxWidth: 450,
           background: "#ffffff",
           borderRadius: 28,
           padding: "40px 32px",

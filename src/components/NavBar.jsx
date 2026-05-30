@@ -125,7 +125,7 @@ export default function NavBar({ children }) {
           {/* Logo + balance */}
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
             <Image
-              src="/assets/logo-full.png"
+              src="/assets/logo.png"
               alt="Payoo"
               width={44}
               height={44}
