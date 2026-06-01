@@ -73,12 +73,18 @@ export default function PayooLogin() {
   const [focusMobile, setFocusMobile] = useState(false);
   const [focusPin, setFocusPin] = useState(false);
 
-  const handleLogin = () => {
+  const handleLogin = (e) => {
+    e.preventDefault();
     if (mobile.length < 10 || pin.length < 4) {
       setShake(true);
       setTimeout(() => setShake(false), 500);
       return;
     }
+
+    const formData = new FormData(e.target);
+    const login = Object.fromEntries(formData.entries());
+    console.log(login); // { mobile: "...", pin: "..." }
+
     setLoading(true);
     setTimeout(() => setLoading(false), 2200);
   };
@@ -229,228 +235,233 @@ export default function PayooLogin() {
               </p>
             </motion.div>
 
-            {/* Mobile Number */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.28, duration: 0.45 }}
-              style={{ marginBottom: 20 }}
-            >
-              <label
-                style={{
-                  display: "block",
-                  marginBottom: 8,
-                  fontSize: 12,
-                  fontWeight: 700,
-                  color: "#1a1a5e",
-                  letterSpacing: "0.05em",
-                  textTransform: "uppercase",
-                }}
+            <form onSubmit={handleLogin}>
+              {/* Mobile Number */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.28, duration: 0.45 }}
+                style={{ marginBottom: 20 }}
               >
-                Mobile Number
-              </label>
-              <div style={{ position: "relative" }}>
-                <FiSmartphone
-                  size={18}
+                <label
                   style={{
-                    position: "absolute",
-                    left: 16,
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                    color: focusMobile ? "#4f46e5" : "#9898c4",
-                    transition: "color 0.2s",
-                  }}
-                />
-                <input
-                  type="number"
-                  placeholder="Enter your number"
-                  value={mobile}
-                  onChange={(e) => setMobile(e.target.value.slice(0, 11))}
-                  onFocus={() => setFocusMobile(true)}
-                  onBlur={() => setFocusMobile(false)}
-                  style={{
-                    ...inputBase,
-                    borderColor: focusMobile ? "#4f46e5" : "#e2e3f0",
-                    background: focusMobile ? "#f0f0ff" : "#f4f5fb",
-                    boxShadow: focusMobile
-                      ? "0 0 0 3px rgba(79,70,229,0.12)"
-                      : "none",
-                  }}
-                />
-              </div>
-            </motion.div>
-
-            {/* 4-Digit PIN */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.38, duration: 0.45 }}
-              style={{ marginBottom: 26 }}
-            >
-              <label
-                style={{
-                  display: "block",
-                  marginBottom: 8,
-                  fontSize: 12,
-                  fontWeight: 700,
-                  color: "#1a1a5e",
-                  letterSpacing: "0.05em",
-                  textTransform: "uppercase",
-                }}
-              >
-                4 Digit PIN
-              </label>
-              <div style={{ position: "relative" }}>
-                <FiLock
-                  size={18}
-                  style={{
-                    position: "absolute",
-                    left: 16,
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                    color: focusPin ? "#4f46e5" : "#9898c4",
-                    transition: "color 0.2s",
-                  }}
-                />
-                <input
-                  type={showPin ? "number" : "password"}
-                  placeholder="Enter 4 Digit Pin"
-                  value={pin}
-                  onChange={(e) => setPin(e.target.value.slice(0, 4))}
-                  onFocus={() => setFocusPin(true)}
-                  onBlur={() => setFocusPin(false)}
-                  style={{
-                    ...inputBase,
-                    paddingRight: 48,
-                    borderColor: focusPin ? "#4f46e5" : "#e2e3f0",
-                    background: focusPin ? "#f0f0ff" : "#f4f5fb",
-                    boxShadow: focusPin
-                      ? "0 0 0 3px rgba(79,70,229,0.12)"
-                      : "none",
-                    letterSpacing: showPin ? "0.01em" : "0.3em",
-                  }}
-                />
-                <button
-                  onClick={() => setShowPin(!showPin)}
-                  style={{
-                    position: "absolute",
-                    right: 14,
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                    background: "none",
-                    border: "none",
-                    cursor: "pointer",
-                    color: "#9898c4",
-                    display: "flex",
-                    alignItems: "center",
-                    padding: 4,
+                    display: "block",
+                    marginBottom: 8,
+                    fontSize: 12,
+                    fontWeight: 700,
+                    color: "#1a1a5e",
+                    letterSpacing: "0.05em",
+                    textTransform: "uppercase",
                   }}
                 >
-                  {showPin ? <FiEyeOff size={17} /> : <FiEye size={17} />}
-                </button>
-              </div>
+                  Mobile Number
+                </label>
+                <div style={{ position: "relative" }}>
+                  <FiSmartphone
+                    size={18}
+                    style={{
+                      position: "absolute",
+                      left: 16,
+                      top: "50%",
+                      transform: "translateY(-50%)",
+                      color: focusMobile ? "#4f46e5" : "#9898c4",
+                      transition: "color 0.2s",
+                    }}
+                  />
+                  <input
+                    name="mobile"
+                    type="number"
+                    placeholder="Enter your number"
+                    value={mobile}
+                    onChange={(e) => setMobile(e.target.value.slice(0, 11))}
+                    onFocus={() => setFocusMobile(true)}
+                    onBlur={() => setFocusMobile(false)}
+                    style={{
+                      ...inputBase,
+                      borderColor: focusMobile ? "#4f46e5" : "#e2e3f0",
+                      background: focusMobile ? "#f0f0ff" : "#f4f5fb",
+                      boxShadow: focusMobile
+                        ? "0 0 0 3px rgba(79,70,229,0.12)"
+                        : "none",
+                    }}
+                  />
+                </div>
+              </motion.div>
 
-              {/* Pin dot progress indicator */}
-              <AnimatePresence>
-                {focusPin && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    exit={{ opacity: 0, height: 0 }}
-                  >
-                    <PinDots value={pin} />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.div>
-
-            {/* Login Button */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.48, duration: 0.45 }}
-            >
-              <motion.button
-                onClick={handleLogin}
-                whileHover={{
-                  scale: 1.02,
-                  boxShadow: "0 12px 32px rgba(79,70,229,0.38)",
-                }}
-                whileTap={{ scale: 0.97 }}
-                disabled={loading}
-                style={{
-                  width: "100%",
-                  padding: "16px",
-                  borderRadius: 16,
-                  border: "none",
-                  background: loading
-                    ? "#7c6fcd"
-                    : "linear-gradient(135deg, #4f46e5 0%, #6d5fdd 100%)",
-                  color: "#ffffff",
-                  fontSize: 15,
-                  fontWeight: 700,
-                  letterSpacing: "0.06em",
-                  cursor: loading ? "not-allowed" : "pointer",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: 10,
-                  boxShadow: "0 8px 24px rgba(79,70,229,0.28)",
-                  transition: "background 0.3s",
-                  textTransform: "uppercase",
-                }}
+              {/* 4-Digit PIN */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.38, duration: 0.45 }}
+                style={{ marginBottom: 26 }}
               >
-                <AnimatePresence mode="wait">
-                  {loading ? (
+                <label
+                  style={{
+                    display: "block",
+                    marginBottom: 8,
+                    fontSize: 12,
+                    fontWeight: 700,
+                    color: "#1a1a5e",
+                    letterSpacing: "0.05em",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  4 Digit PIN
+                </label>
+                <div style={{ position: "relative" }}>
+                  <FiLock
+                    size={18}
+                    style={{
+                      position: "absolute",
+                      left: 16,
+                      top: "50%",
+                      transform: "translateY(-50%)",
+                      color: focusPin ? "#4f46e5" : "#9898c4",
+                      transition: "color 0.2s",
+                    }}
+                  />
+                  <input
+                    name="pin"
+                    type={showPin ? "number" : "password"}
+                    placeholder="Enter 4 Digit Pin"
+                    value={pin}
+                    onChange={(e) => setPin(e.target.value.slice(0, 4))}
+                    onFocus={() => setFocusPin(true)}
+                    onBlur={() => setFocusPin(false)}
+                    style={{
+                      ...inputBase,
+                      paddingRight: 48,
+                      borderColor: focusPin ? "#4f46e5" : "#e2e3f0",
+                      background: focusPin ? "#f0f0ff" : "#f4f5fb",
+                      boxShadow: focusPin
+                        ? "0 0 0 3px rgba(79,70,229,0.12)"
+                        : "none",
+                      letterSpacing: showPin ? "0.01em" : "0.3em",
+                    }}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPin(!showPin)}
+                    style={{
+                      position: "absolute",
+                      right: 14,
+                      top: "50%",
+                      transform: "translateY(-50%)",
+                      background: "none",
+                      border: "none",
+                      cursor: "pointer",
+                      color: "#9898c4",
+                      display: "flex",
+                      alignItems: "center",
+                      padding: 4,
+                    }}
+                  >
+                    {showPin ? <FiEyeOff size={17} /> : <FiEye size={17} />}
+                  </button>
+                </div>
+
+                {/* Pin dot progress indicator */}
+                <AnimatePresence>
+                  {focusPin && (
                     <motion.div
-                      key="loader"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      style={{ display: "flex", gap: 6 }}
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
                     >
-                      {[0, 1, 2].map((i) => (
-                        <motion.div
-                          key={i}
-                          animate={{ y: [0, -6, 0] }}
-                          transition={{
-                            duration: 0.6,
-                            delay: i * 0.15,
-                            repeat: Infinity,
-                          }}
-                          style={{
-                            width: 7,
-                            height: 7,
-                            borderRadius: "50%",
-                            background: "white",
-                          }}
-                        />
-                      ))}
-                    </motion.div>
-                  ) : (
-                    <motion.div
-                      key="text"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      style={{ display: "flex", alignItems: "center", gap: 8 }}
-                    >
-                      Login
-                      <motion.span
-                        animate={{ x: [0, 4, 0] }}
-                        transition={{
-                          duration: 1.4,
-                          repeat: Infinity,
-                          ease: "easeInOut",
-                        }}
-                      >
-                        <FiArrowRight size={18} />
-                      </motion.span>
+                      <PinDots value={pin} />
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </motion.button>
-            </motion.div>
+              </motion.div>
+
+              {/* Login Button */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.48, duration: 0.45 }}
+              >
+                <motion.button
+                  type="submit"
+                  whileHover={{
+                    scale: 1.02,
+                    boxShadow: "0 12px 32px rgba(79,70,229,0.38)",
+                  }}
+                  whileTap={{ scale: 0.97 }}
+                  disabled={loading}
+                  style={{
+                    width: "100%",
+                    padding: "16px",
+                    borderRadius: 16,
+                    border: "none",
+                    background: loading
+                      ? "#7c6fcd"
+                      : "linear-gradient(135deg, #4f46e5 0%, #6d5fdd 100%)",
+                    color: "#ffffff",
+                    fontSize: 15,
+                    fontWeight: 700,
+                    letterSpacing: "0.06em",
+                    cursor: loading ? "not-allowed" : "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: 10,
+                    boxShadow: "0 8px 24px rgba(79,70,229,0.28)",
+                    transition: "background 0.3s",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  <AnimatePresence mode="wait">
+                    {loading ? (
+                      <motion.div
+                        key="loader"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        style={{ display: "flex", gap: 6 }}
+                      >
+                        {[0, 1, 2].map((i) => (
+                          <motion.div
+                            key={i}
+                            animate={{ y: [0, -6, 0] }}
+                            transition={{
+                              duration: 0.6,
+                              delay: i * 0.15,
+                              repeat: Infinity,
+                            }}
+                            style={{
+                              width: 7,
+                              height: 7,
+                              borderRadius: "50%",
+                              background: "white",
+                            }}
+                          />
+                        ))}
+                      </motion.div>
+                    ) : (
+                      <motion.div
+                        key="text"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        style={{ display: "flex", alignItems: "center", gap: 8 }}
+                      >
+                        Login
+                        <motion.span
+                          animate={{ x: [0, 4, 0] }}
+                          transition={{
+                            duration: 1.4,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                          }}
+                        >
+                          <FiArrowRight size={18} />
+                        </motion.span>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.button>
+              </motion.div>
+            </form>
 
             {/* Divider */}
             <motion.div
