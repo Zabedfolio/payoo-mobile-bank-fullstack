@@ -17,6 +17,11 @@ export default function PayBill() {
       toast.error("Please fill in all fields correctly.");
       return;
     }
+
+    const formData = new FormData(e.target);
+    const payBill = Object.fromEntries(formData.entries());
+    console.log(payBill); // { biller: "electricity", account: "...", amount: "...", pin: "..." }
+
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
@@ -86,6 +91,7 @@ export default function PayBill() {
             <label style={labelStyle}>Select To Pay</label>
             <div style={{ position: "relative" }}>
               <select
+                name="biller"
                 value={biller}
                 onChange={(e) => setBiller(e.target.value)}
                 style={{
@@ -112,10 +118,11 @@ export default function PayBill() {
           <div style={{ marginBottom: 20 }}>
             <label style={labelStyle}>Biller Account Number</label>
             <input
+              name="account"
               type="text"
               placeholder="Enter account number"
               value={account}
-              onChange={(e) => setAccount(e.target.value)}
+              onChange={(e) => setAccount(e.target.value.slice(0, 11))}
               style={inputBaseStyle}
               onFocus={(e) => {
                 e.target.style.borderColor = "#4f46e5";
@@ -134,6 +141,7 @@ export default function PayBill() {
           <div style={{ marginBottom: 20 }}>
             <label style={labelStyle}>Amount to Pay</label>
             <input
+              name="amount"
               type="number"
               placeholder="Add Amount to pay"
               value={amount}
@@ -156,6 +164,7 @@ export default function PayBill() {
           <div style={{ marginBottom: 24 }}>
             <label style={labelStyle}>Pin Number</label>
             <input
+              name="pin"
               type="password"
               placeholder="Enter 4 digit pin number"
               value={pin}

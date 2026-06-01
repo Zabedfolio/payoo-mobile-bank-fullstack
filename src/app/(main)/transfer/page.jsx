@@ -16,6 +16,10 @@ export default function Transfer() {
       toast.error("Please fill in all fields correctly.");
       return;
     }
+
+    const formData = new FormData(e.target);
+    const transfer = Object.fromEntries(formData.entries());
+    console.log(transfer); 
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
@@ -83,6 +87,7 @@ export default function Transfer() {
           <div style={{ marginBottom: 20 }}>
             <label style={labelStyle}>User Account Number</label>
             <input
+              name="account"
               type="number"
               placeholder="Enter 11 digit number"
               value={account}
@@ -105,6 +110,7 @@ export default function Transfer() {
           <div style={{ marginBottom: 20 }}>
             <label style={labelStyle}>Amount</label>
             <input
+              name="amount"
               type="number"
               placeholder="Enter amount to transfer"
               value={amount}
@@ -127,6 +133,7 @@ export default function Transfer() {
           <div style={{ marginBottom: 24 }}>
             <label style={labelStyle}>Pin Number</label>
             <input
+              name="pin"
               type="password"
               placeholder="Enter 4 digit pin number"
               value={pin}

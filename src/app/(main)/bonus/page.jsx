@@ -14,6 +14,11 @@ export default function Bonus() {
       toast.error("Please enter a valid coupon code.");
       return;
     }
+
+    const formData = new FormData(e.target);
+    const bonus = Object.fromEntries(formData.entries());
+    console.log(bonus); // { coupon: "..." }
+
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
@@ -79,6 +84,7 @@ export default function Bonus() {
           <div style={{ marginBottom: 24 }}>
             <label style={labelStyle}>Enter Bonus Coupon</label>
             <input
+              name="coupon"
               type="text"
               placeholder="Enter your coupon"
               value={coupon}

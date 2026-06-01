@@ -16,6 +16,11 @@ export default function Cashout() {
       toast.error("Please fill in all fields correctly.");
       return;
     }
+
+    const formData = new FormData(e.target);
+    const cashout = Object.fromEntries(formData.entries());
+    console.log(cashout); 
+
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
@@ -83,6 +88,7 @@ export default function Cashout() {
           <div style={{ marginBottom: 20 }}>
             <label style={labelStyle}>Agent Number</label>
             <input
+              name="agent"
               type="number"
               placeholder="Enter 11 digit number"
               value={agent}
@@ -105,6 +111,7 @@ export default function Cashout() {
           <div style={{ marginBottom: 20 }}>
             <label style={labelStyle}>Amount</label>
             <input
+              name="amount"
               type="number"
               placeholder="Enter amount to withdraw"
               value={amount}
@@ -127,6 +134,7 @@ export default function Cashout() {
           <div style={{ marginBottom: 24 }}>
             <label style={labelStyle}>Pin Number</label>
             <input
+              name="pin"
               type="password"
               placeholder="Enter 4 digit pin number"
               value={pin}

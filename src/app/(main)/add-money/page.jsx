@@ -17,6 +17,10 @@ export default function AddMoney() {
       toast.error("Please fill in all fields correctly.");
       return;
     }
+
+    const formData = new FormData(e.target);
+    const addMoney = Object.fromEntries(formData.entries());
+    console.log(addMoney); 
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
@@ -87,6 +91,7 @@ export default function AddMoney() {
             <label style={labelStyle}>Select A Bank</label>
             <div style={{ position: "relative" }}>
               <select
+                name="bank"
                 value={bank}
                 onChange={(e) => setBank(e.target.value)}
                 style={{
@@ -101,11 +106,11 @@ export default function AddMoney() {
                 <option value="" disabled>
                   Select bank
                 </option>
-                <option value="bkash">bKash</option>
-                <option value="nagad">Nagad</option>
-                <option value="rocket">Rocket</option>
-                <option value="dbbl">DBBL Nexus</option>
-                <option value="ibbl">IBBL</option>
+                <option name="bank" value="bkash">bKash</option>
+                <option name="bank" value="nagad">Nagad</option>
+                <option name="bank" value="rocket">Rocket</option>
+                <option name="bank" value="dbbl">DBBL Nexus</option>
+                <option name="bank" value="ibbl">IBBL</option>
               </select>
             </div>
           </div>
@@ -114,6 +119,7 @@ export default function AddMoney() {
           <div style={{ marginBottom: 20 }}>
             <label style={labelStyle}>Bank Account Number</label>
             <input
+              name="account"
               type="number"
               placeholder="Enter 11 digit account number"
               value={account}
@@ -136,6 +142,7 @@ export default function AddMoney() {
           <div style={{ marginBottom: 20 }}>
             <label style={labelStyle}>Amount to Add</label>
             <input
+              name="amount"
               type="number"
               placeholder="Add Amount to withdraw"
               value={amount}
@@ -158,6 +165,7 @@ export default function AddMoney() {
           <div style={{ marginBottom: 24 }}>
             <label style={labelStyle}>Pin Number</label>
             <input
+              name="pin"
               type="password"
               placeholder="Enter 4 digit pin number"
               value={pin}
