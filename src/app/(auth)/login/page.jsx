@@ -3,6 +3,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiSmartphone, FiLock, FiEye, FiEyeOff, FiArrowRight } from "react-icons/fi";
 import Image from "next/image";
+import Link from "next/link";
 
 // ─── Animated background blobs ────────────────────────────────────────────────
 const Blob = ({ style, animate }) => (
@@ -556,6 +557,25 @@ export default function PayooLogin() {
                   )}
                 </AnimatePresence>
               </motion.button>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.55, duration: 0.4 }}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                margin: "20px 0",
+              }}
+            >
+              <span style={{ fontSize: 13, color: "#b0b0d0" }}>
+                Don’t have an account?{" "}
+                <Link href="/signup" style={{ color: "#6c63ff", fontWeight: 600 }}>
+                  Sign up
+                </Link>
+              </span>
             </motion.div>
           </motion.div>
 
